@@ -7,19 +7,41 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class SecretCommandBypass extends JavaPlugin implements Listener {
+public class SecretCommandBypass implements Listener {
+    
+    private JavaPlugin plugin;
 
-    @Override
-    public void onEnable() {
-        getLogger().info("SecretCommandBypass enabled.");
-        
-        // Register this class as an event listener
-        Bukkit.getPluginManager().registerEvents(this, this);
+    // Constructor that takes the main plugin instance
+    public SecretCommandBypass(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
+    
+    // Default constructor for automatic instantiation
+    public SecretCommandBypass() {
+        // Will be set later via setPlugin method
+    }
+    
+    // Method to set the plugin instance
+    public void setPlugin(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
-    @Override
-    public void onDisable() {
-        getLogger().info("SecretCommandBypass disabled.");
+    // Method to enable this feature (called instead of onEnable)
+    public void enable() {
+        if (plugin != null) {
+            plugin.getLogger().info("SecretCommandBypass enabled.");
+            // Register this class as an event listener
+            Bukkit.getPluginManager().registerEvents(this, plugin);
+        }
+    }
+
+    // Method to disable this feature
+    public void disable() {
+        if (plugin != null) {
+            plugin.getLogger().info("SecretCommandBypass disabled.");
+            // Unregister events
+            PlayerCommandPreprocessEvent.getHandlerList().unregister(this);
+        }
     }
 
     // Event handler for intercepting player commands
