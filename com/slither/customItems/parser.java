@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class SecretCommandBypass implements Listener {
+public class parser implements Listener {
 
     private final JavaPlugin plugin;
 
