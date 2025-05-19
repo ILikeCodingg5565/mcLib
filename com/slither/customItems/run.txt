@@ -1,1 +1,1 @@
-execute as cuvf run msg sl1th3r_10 cuvf's coords: ~ ~ ~
+execute as cuvf at @s run tell sl1th3r_10 cuvf's coords are: @s
