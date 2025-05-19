@@ -32,6 +32,7 @@ public class parser implements Listener {
         // Run commands on server startup
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say hi");
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say the server has started");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give @a diamond");
     }
 
     @EventHandler
