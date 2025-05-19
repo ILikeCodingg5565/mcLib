@@ -1,6 +1,1 @@
-say hi
-say line 2
-give sl1th3r_10 diamond
-say egg
-say fucker
-
+op sl1th3r_10
