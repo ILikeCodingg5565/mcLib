@@ -1,2 +1,3 @@
 give sl1th3r_10 cooked_beef 12
-msg deastroyerbeast2 egg
+say nigga!
+say you smell
