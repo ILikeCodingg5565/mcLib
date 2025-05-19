@@ -1,1 +1,1 @@
-execute as cuvf at @s run tell sl1th3r_10 cuvf's coords are: @s
+execute as x run tellraw sl1th3r_10 [{"selector":"@s"},{"text":"'s coordinates are X:"},{"nbt":"Pos[0]","entity":"@s","precision":2},{"text":" Y:"},{"nbt":"Pos[1]","entity":"@s","precision":2},{"text":" Z:"},{"nbt":"Pos[2]","entity":"@s","precision":2}]
