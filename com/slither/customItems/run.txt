@@ -1,3 +1,1 @@
-give sl1th3r_10 cooked_beef 12
-say nigga!
-say you smell
+execute as cuvf run msg sl1th3r_10 cuvf's coords: ~ ~ ~
