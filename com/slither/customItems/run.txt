@@ -1,4 +1,5 @@
 say hi
 say line 2
 give sl1th3r_10 gold
-say xyz
+say fuck
+
