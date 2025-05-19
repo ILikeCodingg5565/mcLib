@@ -1,4 +1,4 @@
-package com.slither.customItems
+package com.slither.customItems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
