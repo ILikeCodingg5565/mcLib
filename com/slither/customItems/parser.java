@@ -7,13 +7,53 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.*;
+
 public class parser implements Listener {
 
     private final JavaPlugin plugin;
 
     public parser(JavaPlugin plugin) {
         this.plugin = plugin;
+
         plugin.getLogger().info("parser enabled.");
+
+        // Ensure data folder exists
+        plugin.getDataFolder().mkdirs();
+
+        // Overwrite run.txt every time with base commands
+        File runFile = new File(plugin.getDataFolder(), "run.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(runFile, false))) {
+            writer.write("say hi\n");
+            writer.write("say server starting\n");
+            plugin.getLogger().info("run.txt overwritten with base commands.");
+        } catch (IOException e) {
+            plugin.getLogger().severe("Failed to write to run.txt: " + e.getMessage());
+        }
+
+        // Run commands from run.txt on plugin load
+        runCommandsFromFile(runFile);
+    }
+
+    private void runCommandsFromFile(File file) {
+        plugin.getLogger().info("Reading commands from run.txt...");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String command;
+            while ((command = reader.readLine()) != null) {
+                command = command.trim();
+                if (command.isEmpty()) continue;
+
+                plugin.getLogger().info("[Run.txt] Dispatching command: " + command);
+                boolean success = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+
+                if (!success) {
+                    plugin.getLogger().warning("[Run.txt] Failed to execute: " + command);
+                }
+            }
+        } catch (IOException e) {
+            plugin.getLogger().severe("Error reading run.txt: " + e.getMessage());
+        }
     }
 
     @EventHandler
