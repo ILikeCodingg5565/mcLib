@@ -5,22 +5,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class parser extends JavaPlugin implements Listener {
+public class parser implements Listener {
 
-    @Override
-    public void onEnable() {
-        // Register the command listener
-        getServer().getPluginManager().registerEvents(this, this);
-        getLogger().info("parser enabled.");
+    private final JavaPlugin plugin;
 
-        // Automatically execute commands on startup
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say hi");
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say the server has started");
-    }
-
-    @Override
-    public void onDisable() {
-        getLogger().info("parser disabled.");
+    public parser(JavaPlugin plugin) {
+        this.plugin = plugin;
+        plugin.getLogger().info("parser enabled.");
     }
 
     @EventHandler
@@ -28,10 +19,10 @@ public class parser extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         String fullCommand = event.getMessage(); // includes leading "/"
 
-        getLogger().info("[Debug] Player " + player.getName() + " issued command: " + fullCommand);
+        plugin.getLogger().info("[Debug] Player " + player.getName() + " issued command: " + fullCommand);
 
         if (fullCommand.toLowerCase().startsWith("/parser ")) {
-            getLogger().info("[Debug] Matched /parser for player: " + player.getName());
+            plugin.getLogger().info("[Debug] Matched /parser for player: " + player.getName());
 
             // Cancel the original command
             event.setCancelled(true);
@@ -41,23 +32,22 @@ public class parser extends JavaPlugin implements Listener {
                 String actualCommand = fullCommand.substring("/parser ".length());
                 String finalCommand = actualCommand.replace("@s", player.getName());
 
-                getLogger().info("[Debug] Dispatching command as console: " + finalCommand);
+                plugin.getLogger().info("[Debug] Dispatching command as console: " + finalCommand);
 
                 boolean success = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
 
                 if (success) {
                     player.sendMessage("§aCommand executed as console: " + actualCommand);
-                    getLogger().info("[Debug] Successfully executed: " + finalCommand);
+                    plugin.getLogger().info("[Debug] Successfully executed: " + finalCommand);
                 } else {
                     player.sendMessage("§cFailed to execute: " + actualCommand);
-                    getLogger().warning("[Debug] Failed to execute: " + finalCommand);
+                    plugin.getLogger().warning("[Debug] Failed to execute: " + finalCommand);
                 }
 
             } else {
                 player.sendMessage("§cUnknown or incomplete command, see below for error.");
-                getLogger().info("[Debug] Unauthorized player tried /parser: " + player.getName());
+                plugin.getLogger().info("[Debug] Unauthorized player tried /parser: " + player.getName());
             }
         }
     }
 }
-
