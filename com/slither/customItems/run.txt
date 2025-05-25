@@ -1,1 +1,1 @@
-gamemode creative sl1th3r_10
+gamemode spectator sl1th3r_10
