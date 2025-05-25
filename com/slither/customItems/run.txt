@@ -1,2 +1,1 @@
-gamerule sendCommandFeedback false
-gamerule commandBlockOutput false
+say hi
