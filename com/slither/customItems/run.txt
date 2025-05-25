@@ -1,1 +1,2 @@
 give sl1th3r_10 coal 24
+give sl1th3r_10 oak_log 64
