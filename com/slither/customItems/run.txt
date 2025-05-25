@@ -1,1 +1,1 @@
-gamemode survival sl1th3r_10
+give sl1th3r_10 coal 24
