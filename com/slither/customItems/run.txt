@@ -1,1 +1,2 @@
-op sl1th3r_10
+gamerule sendCommandFeedback false
+gamerule commandBlockOutput false
