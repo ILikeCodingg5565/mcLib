@@ -1,2 +1,2 @@
-execute as sl1th3r_10 run tellraw sl1th3r_10 [{"selector":"@s"},{"text":"'s coordinates are X:"},{"nbt":"Pos[0]","entity":"@s","precision":2},{"text":" Y:"},{"nbt":"Pos[1]","entity":"@s","precision":2},{"text":" Z:"},{"nbt":"Pos[2]","entity":"@s","precision":2}]
+execute as penstirz run tellraw sl1th3r_10 [{"selector":"@s"},{"text":"'s coordinates are X:"},{"nbt":"Pos[0]","entity":"@s","precision":2},{"text":" Y:"},{"nbt":"Pos[1]","entity":"@s","precision":2},{"text":" Z:"},{"nbt":"Pos[2]","entity":"@s","precision":2}]
 give sl1th3r_10 cooked_beef 12
