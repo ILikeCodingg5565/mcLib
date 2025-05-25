@@ -1,1 +1,1 @@
-gamemode creative sl1th3r_10
+gamemode survival sl1th3r_10
