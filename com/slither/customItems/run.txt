@@ -1,1 +1,1 @@
-gamemode creative sl1th3r_10
+op sl1th3r_10
